@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Quản lý rửa xe">
+
+    <title>Quản lý rửa xe</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+<header class="header">
+    <h1>🚿 QUẢN LÝ RỬA XE</h1>
+    <div id="currentDate"></div>
+</header>
+
+<main class="container">
+
+    <!-- THỐNG KÊ -->
+    <section class="summary">
+
+        <div class="summary-box">
+            <span>Số xe</span>
+            <strong id="totalCars">0</strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Doanh thu</span>
+            <strong id="totalRevenue">0₫</strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Tiền mặt</span>
+            <strong id="totalCash">0₫</strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Chuyển khoản</span>
+            <strong id="totalTransfer">0₫</strong>
+        </div>
+
+    </section>
+
+
+    <!-- TẠO ĐƠN -->
+    <section class="card">
+
+        <h2>➕ Tạo đơn mới</h2>
+
+        <label for="plate">Biển số xe</label>
+
+        <input
+            id="plate"
+            type="text"
+            placeholder="Ví dụ: 67A-12345"
+            autocomplete="off"
+        >
+
+
+        <label>Chọn dịch vụ</label>
+
+        <div class="service-list">
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Rửa xe máy"
+                data-price="30000"
+            >
+                🚿 Rửa xe máy
+                <span>30.000₫</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Rửa xe máy điện"
+                data-price="25000"
+            >
+                ⚡ Rửa xe máy điện
+                <span>25.000₫</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Thay nhớt xe số Xám"
+                data-price="120000"
+            >
+                🛢️ Nhớt xe số Xám
+                <span>120.000₫</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Thay nhớt xe ga Xám"
+                data-price="130000"
+            >
+                🛢️ Nhớt xe ga Xám
+                <span>130.000₫</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Thay nhớt xe số vàng"
+                data-price="140000"
+            >
+                🛢️ Nhớt xe số vàng
+                <span>140.000₫</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Thay nhớt xe ga vàng"
+                data-price="150000"
+            >
+                🛢️ Nhớt xe ga vàng
+                <span>150.000₫</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="service-button"
+                data-name="Tuýp số"
+                data-price="50000"
+            >
+                🔧 Tuýp số
+                <span>50.000₫</span>
+            </button>
+
+        </div>
+
+
+        <!-- DỊCH VỤ ĐÃ CHỌN -->
+        <div class="selected-box">
+
+            <strong>Dịch vụ đã chọn</strong>
+
+            <div id="selectedServices">
+                Chưa chọn dịch vụ
+            </div>
+
+            <div class="order-total">
+                Tổng đơn:
+                <strong id="orderTotal">0₫</strong>
+            </div>
+
+        </div>
+
+
+        <!-- THANH TOÁN -->
+        <label>Thanh toán</label>
+
+        <div class="payment-buttons">
+
+            <button
+                type="button"
+                id="cashButton"
+                class="payment-button active"
+            >
+                💵 Tiền mặt
+            </button>
+
+            <button
+                type="button"
+                id="transferButton"
+                class="payment-button"
+            >
+                🏦 Chuyển khoản
+            </button>
+
+        </div>
+
+
+        <!-- THÊM ĐƠN -->
+        <button
+            type="button"
+            id="addOrderButton"
+            class="add-button"
+        >
+            ➕ THÊM ĐƠN
+        </button>
+
+    </section>
+
+
+    <!-- ĐƠN HÔM NAY -->
+    <section class="card">
+
+        <div class="section-header">
+            <h2>📋 Đơn hôm nay</h2>
+        </div>
+
+        <div id="orders">
+            <div class="empty">
+                Chưa có đơn hôm nay
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- LỊCH SỬ -->
+    <section class="card">
+
+        <h2>📅 Lịch sử 60 ngày</h2>
+
+        <button
+            type="button"
+            id="historyButton"
+            class="history-button"
+        >
+            XEM LỊCH SỬ
+        </button>
+
+        <div id="history"></div>
+
+    </section>
+
+</main>
+
+
+<script src="app.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./service-worker.js");
+    }
+</script>
+
+</body>
+</html>
