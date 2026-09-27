@@ -1,247 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Quản lý rửa xe">
-
-    <title>Quản lý rửa xe</title>
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#087cff">
+<title>Quản Lý Rửa Xe Máy</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+<div class="app">
 
 <header class="header">
-    <h1>🚿 QUẢN LÝ RỬA XE</h1>
-    <div id="currentDate"></div>
+  <div class="brand">
+    <div class="brand-icon">🏍️</div>
+    <div>
+      <h1>QUẢN LÝ RỬA XE MÁY</h1>
+      <div class="subtitle">SẠCH XE • SÁNG XE • AN TÂM</div>
+    </div>
+  </div>
+  <div id="currentDate"></div>
 </header>
+
+<nav class="tabs" aria-label="Điều hướng">
+  <button class="tab active" data-tab="ordersTab">🧾 <span>Tạo đơn</span></button>
+  <button class="tab" data-tab="historyTab">📅 <span>Lịch sử</span></button>
+  <button class="tab" data-tab="reportTab">📊 <span>Báo cáo</span></button>
+</nav>
 
 <main class="container">
 
-    <!-- THỐNG KÊ -->
-    <section class="summary">
+<section id="ordersTab" class="tab-panel active">
+  <div class="today-summary">
+    <div class="mini-stat"><span>🏍️ Hôm nay</span><strong id="totalCars">0</strong><small>xe</small></div>
+    <div class="mini-stat"><span>💰 Thực nhận</span><strong id="totalRevenue">0₫</strong></div>
+    <div class="mini-stat"><span>💵 Tiền mặt</span><strong id="totalCash">0₫</strong></div>
+    <div class="mini-stat"><span>🏦 Chuyển khoản</span><strong id="totalTransfer">0₫</strong></div>
+    <div class="mini-stat employee"><span>👨‍🔧 Tiền NV</span><strong id="totalEmployeePayment">0₫</strong></div>
+  </div>
 
-        <div class="summary-box">
-            <span>Số xe</span>
-            <strong id="totalCars">0</strong>
+  <div class="main-grid">
+    <section class="card create-card">
+      <div class="section-title">
+        <div>
+          <div class="eyebrow">NHANH & GỌN</div>
+          <h2>🧾 Tạo đơn mới</h2>
         </div>
+        <span class="badge">Đơn #<b id="nextVehicleNumber">1</b></span>
+      </div>
 
-        <div class="summary-box">
-            <span>Doanh thu</span>
-            <strong id="totalRevenue">0₫</strong>
-        </div>
+      <label for="plate">BIỂN SỐ XE</label>
+      <input id="plate" type="text" inputmode="text" autocomplete="off" placeholder="Nhập biển số xe...">
 
-        <div class="summary-box">
-            <span>Tiền mặt</span>
-            <strong id="totalCash">0₫</strong>
-        </div>
+      <label>CHỌN DỊCH VỤ</label>
+      <div class="service-list">
+        <button type="button" class="service-button" data-name="Rửa xe máy" data-price="30000"><span class="service-icon">🏍️</span><span class="service-name">Rửa xe máy</span><b>30.000₫</b></button>
+        <button type="button" class="service-button" data-name="Rửa xe máy điện" data-price="25000"><span class="service-icon">⚡</span><span class="service-name">Rửa xe máy điện</span><b>25.000₫</b></button>
+        <button type="button" class="service-button" data-name="Thay nhớt xe số Xám" data-price="120000"><span class="service-icon">🛢️</span><span class="service-name">Nhớt xe số Xám</span><b>120.000₫</b></button>
+        <button type="button" class="service-button" data-name="Thay nhớt xe ga Xám" data-price="130000"><span class="service-icon">🛢️</span><span class="service-name">Nhớt xe ga Xám</span><b>130.000₫</b></button>
+        <button type="button" class="service-button" data-name="Thay nhớt xe số vàng" data-price="140000"><span class="service-icon">🛢️</span><span class="service-name">Nhớt xe số vàng</span><b>140.000₫</b></button>
+        <button type="button" class="service-button" data-name="Nhớt xe số vàng 1L" data-price="160000"><span class="service-icon">🛢️</span><span class="service-name">Nhớt xe số vàng 1L</span><b>160.000₫</b></button>
+        <button type="button" class="service-button" data-name="Thay nhớt xe ga vàng" data-price="150000"><span class="service-icon">🛢️</span><span class="service-name">Nhớt xe ga vàng</span><b>150.000₫</b></button>
+        <button type="button" class="service-button" data-name="Tuýp số" data-price="50000"><span class="service-icon">⚙️</span><span class="service-name">Tuýp số</span><b>50.000₫</b><small>Không tính NV</small></button>
+      </div>
 
-        <div class="summary-box">
-            <span>Chuyển khoản</span>
-            <strong id="totalTransfer">0₫</strong>
-        </div>
+      <div class="selected-box" id="selectedServices">Chưa chọn dịch vụ</div>
+      <div class="order-total"><span>TỔNG TIỀN</span><strong id="orderTotal">0₫</strong></div>
 
+      <label>PHƯƠNG THỨC THANH TOÁN</label>
+      <div class="payment-buttons">
+        <button type="button" id="cashButton" class="payment-button">💵 Tiền mặt</button>
+        <button type="button" id="transferButton" class="payment-button">🏦 Chuyển khoản</button>
+      </div>
+      <button type="button" id="addOrderButton" class="add-button">🏍️ TẠO ĐƠN RỬA XE</button>
     </section>
 
-
-    <!-- TẠO ĐƠN -->
-    <section class="card">
-
-        <h2>➕ Tạo đơn mới</h2>
-
-        <label for="plate">Biển số xe</label>
-
-        <input
-            id="plate"
-            type="text"
-            placeholder="Ví dụ: 67A-12345"
-            autocomplete="off"
-        >
-
-
-        <label>Chọn dịch vụ</label>
-
-        <div class="service-list">
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Rửa xe máy"
-                data-price="30000"
-            >
-                🚿 Rửa xe máy
-                <span>30.000₫</span>
-            </button>
-
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Rửa xe máy điện"
-                data-price="25000"
-            >
-                ⚡ Rửa xe máy điện
-                <span>25.000₫</span>
-            </button>
-
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Thay nhớt xe số Xám"
-                data-price="120000"
-            >
-                🛢️ Nhớt xe số Xám
-                <span>120.000₫</span>
-            </button>
-
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Thay nhớt xe ga Xám"
-                data-price="130000"
-            >
-                🛢️ Nhớt xe ga Xám
-                <span>130.000₫</span>
-            </button>
-
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Thay nhớt xe số vàng"
-                data-price="140000"
-            >
-                🛢️ Nhớt xe số vàng
-                <span>140.000₫</span>
-            </button>
-
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Thay nhớt xe ga vàng"
-                data-price="150000"
-            >
-                🛢️ Nhớt xe ga vàng
-                <span>150.000₫</span>
-            </button>
-
-
-            <button
-                type="button"
-                class="service-button"
-                data-name="Tuýp số"
-                data-price="50000"
-            >
-                🔧 Tuýp số
-                <span>50.000₫</span>
-            </button>
-
+    <section class="card today-card">
+      <div class="section-title">
+        <div>
+          <div class="eyebrow">TRONG NGÀY</div>
+          <h2>📋 Đơn hôm nay</h2>
         </div>
+        <span class="badge blue">Mới nhất trước</span>
+      </div>
+      <div id="orders"><div class="empty">Chưa có đơn hôm nay</div></div>
+    </section>
+  </div>
+</section>
 
+<section id="historyTab" class="tab-panel">
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">TRA CỨU</div>
+      <h2>📅 Lịch sử giao dịch</h2>
+      <p>Toàn bộ đơn trong 60 ngày gần nhất.</p>
+    </div>
+    <div class="history-tools">
+      <input id="historySearch" type="search" placeholder="🔎 Tìm biển số...">
+      <button id="historyClear" class="soft-button">Xóa tìm kiếm</button>
+    </div>
+  </div>
 
-        <!-- DỊCH VỤ ĐÃ CHỌN -->
-        <div class="selected-box">
+  <div class="history-summary">
+    <div><span>Số xe</span><strong id="historyCars">0</strong></div>
+    <div><span>Doanh thu gộp</span><strong id="historyGross">0₫</strong></div>
+    <div><span>Tiền NV</span><strong id="historyEmployee">0₫</strong></div>
+    <div><span>Thực nhận</span><strong id="historyNet">0₫</strong></div>
+  </div>
 
-            <strong>Dịch vụ đã chọn</strong>
+  <div id="history"><div class="empty">Chưa có lịch sử</div></div>
+</section>
 
-            <div id="selectedServices">
-                Chưa chọn dịch vụ
-            </div>
+<section id="reportTab" class="tab-panel">
+  <div class="page-heading report-heading">
+    <div>
+      <div class="eyebrow">QUẢN LÝ TÀI CHÍNH</div>
+      <h2>📊 Báo cáo doanh thu</h2>
+      <p id="reportPeriodText">Hôm nay</p>
+    </div>
+    <div class="report-presets">
+      <button class="report-preset active" data-period="today">Hôm nay</button>
+      <button class="report-preset" data-period="7">7 ngày</button>
+      <button class="report-preset" data-period="30">30 ngày</button>
+      <button class="report-preset" data-period="month">Tháng này</button>
+    </div>
+  </div>
 
-            <div class="order-total">
-                Tổng đơn:
-                <strong id="orderTotal">0₫</strong>
-            </div>
+  <div class="report-cards">
+    <div class="report-card gross"><span>💵 Doanh thu gộp</span><strong id="reportGross">0₫</strong><small>Tổng tiền khách thanh toán</small></div>
+    <div class="report-card employee"><span>👨‍🔧 Tiền nhân viên</span><strong id="reportEmployee">0₫</strong><small>Khoản trả theo quy tắc hiện tại</small></div>
+    <div class="report-card net"><span>💰 Doanh thu thực nhận</span><strong id="reportNet">0₫</strong><small>Gộp − tiền nhân viên</small></div>
+    <div class="report-card cars"><span>🏍️ Số xe</span><strong id="reportCars">0</strong><small>Đơn trong kỳ</small></div>
+    <div class="report-card cash"><span>💵 Tiền mặt</span><strong id="reportCash">0₫</strong><small>Thực nhận sau NV</small></div>
+    <div class="report-card transfer"><span>🏦 Chuyển khoản</span><strong id="reportTransfer">0₫</strong><small>Thực nhận sau NV</small></div>
+  </div>
 
-        </div>
-
-
-        <!-- THANH TOÁN -->
-        <label>Thanh toán</label>
-
-        <div class="payment-buttons">
-
-            <button
-                type="button"
-                id="cashButton"
-                class="payment-button active"
-            >
-                💵 Tiền mặt
-            </button>
-
-            <button
-                type="button"
-                id="transferButton"
-                class="payment-button"
-            >
-                🏦 Chuyển khoản
-            </button>
-
-        </div>
-
-
-        <!-- THÊM ĐƠN -->
-        <button
-            type="button"
-            id="addOrderButton"
-            class="add-button"
-        >
-            ➕ THÊM ĐƠN
-        </button>
-
+  <div class="report-grid">
+    <section class="card report-section">
+      <div class="section-title"><h3>📈 Doanh thu theo ngày</h3><span class="badge">Thực nhận</span></div>
+      <div id="dailyReport" class="daily-report"></div>
     </section>
 
-
-    <!-- ĐƠN HÔM NAY -->
-    <section class="card">
-
-        <div class="section-header">
-            <h2>📋 Đơn hôm nay</h2>
-        </div>
-
-        <div id="orders">
-            <div class="empty">
-                Chưa có đơn hôm nay
-            </div>
-        </div>
-
+    <section class="card report-section">
+      <div class="section-title"><h3>🧴 Doanh thu theo dịch vụ</h3><span class="badge">Gộp</span></div>
+      <div id="serviceReport" class="service-report"></div>
     </section>
+  </div>
 
-
-    <!-- LỊCH SỬ -->
-    <section class="card">
-
-        <h2>📅 Lịch sử 60 ngày</h2>
-
-        <button
-            type="button"
-            id="historyButton"
-            class="history-button"
-        >
-            XEM LỊCH SỬ
-        </button>
-
-        <div id="history"></div>
-
-    </section>
+  <div class="report-note">
+    <strong>ℹ️ Cách tính:</strong> Doanh thu thực nhận = tổng tiền đơn − tiền nhân viên. 
+    Rửa xe từ xe #9 được tính 10.000₫/xe; đơn có thay nhớt được tính thêm 10.000₫. Tuýp số không tính NV.
+  </div>
+</section>
 
 </main>
+</div>
 
-
-<script src="app.js"></script>
+<script src="./app.js"></script>
 <script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./service-worker.js");
-    }
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(console.error));
+}
 </script>
-
 </body>
 </html>

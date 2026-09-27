@@ -1,11 +1,9 @@
 {
-  "name": "Quản lý rửa xe",
-  "short_name": "Rửa xe",
-  "description": "Ứng dụng quản lý rửa xe offline",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#f2f4f7",
-  "theme_color": "#1677ff",
-  "orientation": "portrait",
-  "icons": []
+  "name":"Quản Lý Rửa Xe Máy",
+  "short_name":"Rửa Xe Máy",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#e8f7ff",
+  "theme_color":"#087cff",
+  "icons":[]
 }
